@@ -13,6 +13,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        numShakesText = (TextView) findViewById(numShakesText);
+        numShakesText = (TextView) findViewById(R.id.numShakesText);
     }
 }
