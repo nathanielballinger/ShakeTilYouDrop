@@ -21,9 +21,15 @@ public class UIState {
         uiViews.put(view.getId(), view);
     }
 
-    public void addShake() {
+    public void shake() {
         TextView numShakesText = (TextView) uiViews.get(R.id.numShakesText);
-        int oldNumShakes = Integer.parseInt(numShakesText.getText().toString());
+        int oldNumShakes;
+        try {
+            oldNumShakes = Integer.parseInt(numShakesText.getText().toString());
+        }
+        catch (NumberFormatException e) {
+            oldNumShakes = 0;
+        }
         ((TextView)uiViews.get(R.id.numShakesText)).setText(Integer.toString(++oldNumShakes));
     }
 }
