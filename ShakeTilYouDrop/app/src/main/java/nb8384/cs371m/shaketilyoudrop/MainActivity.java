@@ -5,8 +5,11 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +19,10 @@ public class MainActivity extends AppCompatActivity implements ShakeListener.OnS
     private Sensor motionSensor;
     private ShakeListener shakeListener;
     private UIState uiState;
+    Toolbar toolbar;
+    ImageView shaker;
+
+    DisplayMetrics dimensions;
 
     private static final String TAG = "MainActivity";
 
@@ -23,6 +30,17 @@ public class MainActivity extends AppCompatActivity implements ShakeListener.OnS
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        dimensions = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dimensions);
+        int screenHeight = dimensions.heightPixels;
+        int screenWidth = dimensions.widthPixels;
+
+        int shakerHeight = (int) (screenHeight * 0.5);
+        int shakerWidgth = (int) (screenWidth * 0.5);
+
+        shaker = (ImageView) findViewById(R.id.shakerView);
+        shaker.getLayoutParams().height = shakerHeight;
+        shaker.getLayoutParams().width = shakerWidgth;
 
         uiState = new UIState();
         uiState.addView(findViewById(R.id.numShakesText));
