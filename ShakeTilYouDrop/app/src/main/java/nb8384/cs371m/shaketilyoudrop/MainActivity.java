@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,7 +20,8 @@ public class MainActivity extends AppCompatActivity implements ShakeListener.OnS
     private Sensor motionSensor;
     private ShakeListener shakeListener;
     private UIState uiState;
-    Toolbar toolbar;
+    String username = "Test Username"; //Dummy Username!!!!!!! Change later
+    TextView userText;
     ImageView shaker;
 
     DisplayMetrics dimensions;
@@ -35,9 +37,13 @@ public class MainActivity extends AppCompatActivity implements ShakeListener.OnS
         int screenHeight = dimensions.heightPixels;
         int screenWidth = dimensions.widthPixels;
 
+        int userSize = (int) (screenWidth * 0.025);
+        userText = (TextView) findViewById(R.id.userText);
+        userText.setTextSize(TypedValue.COMPLEX_UNIT_SP, userSize);
+        userText.setText(username);
+
         int shakerHeight = (int) (screenHeight * 0.5);
         int shakerWidgth = (int) (screenWidth * 0.5);
-
         shaker = (ImageView) findViewById(R.id.shakerView);
         shaker.getLayoutParams().height = shakerHeight;
         shaker.getLayoutParams().width = shakerWidgth;
