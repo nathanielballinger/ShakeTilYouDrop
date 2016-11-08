@@ -38,5 +38,32 @@
         android:textSize="20dp"
         android:layout_below="@id/shakerView"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/resetButton"
+        android:text="RESET"
+        android:textSize="20dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_above="@+id/resetButton"
+        android:id="@+id/storeButton"
+        android:text="STORE"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/timeText"
+        android:text="Total Time Played"
+        android:textSize="20dp"/>
+
 
 </RelativeLayout>

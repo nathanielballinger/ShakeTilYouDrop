@@ -1,15 +1,18 @@
 package nb8384.cs371m.shaketilyoudrop;
 
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorManager;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,8 +24,10 @@ public class MainActivity extends AppCompatActivity implements ShakeListener.OnS
     private ShakeListener shakeListener;
     private UIState uiState;
     String username = "Test Username"; //Dummy Username!!!!!!! Change later
-    TextView userText;
+    TextView userText, timeText;
     ImageView shaker;
+    Button reset, store;
+
 
     DisplayMetrics dimensions;
 
@@ -48,8 +53,17 @@ public class MainActivity extends AppCompatActivity implements ShakeListener.OnS
         shaker.getLayoutParams().height = shakerHeight;
         shaker.getLayoutParams().width = shakerWidgth;
 
+        reset = (Button) findViewById(R.id.resetButton);
+        store = (Button) findViewById(R.id.storeButton);
+        reset.setTextSize(TypedValue.COMPLEX_UNIT_SP, userSize);
+        store.setTextSize(TypedValue.COMPLEX_UNIT_SP, userSize);
+
+        timeText = (TextView) findViewById(R.id.timeText);
+        timeText.setTextSize(TypedValue.COMPLEX_UNIT_SP, userSize/2);
+
         uiState = new UIState();
         uiState.addView(findViewById(R.id.numShakesText));
+
 
         shakeListener = new ShakeListener(getApplicationContext());
         shakeListener.setOnShakeListener(this);
@@ -60,6 +74,14 @@ public class MainActivity extends AppCompatActivity implements ShakeListener.OnS
             Log.i(TAG, "Motion sensor not found!");
 
     }
+
+    public Runnable realTime = new Runnable(){
+
+        @Override
+        public void run() {
+
+        }
+    };
 
     @Override
     protected void onResume() {

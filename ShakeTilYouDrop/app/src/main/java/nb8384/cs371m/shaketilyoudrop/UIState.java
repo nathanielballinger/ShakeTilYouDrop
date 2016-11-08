@@ -1,5 +1,8 @@
 package nb8384.cs371m.shaketilyoudrop;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
 
@@ -11,7 +14,7 @@ import java.util.Map;
  * Created by Nathaniel on 10/10/2016.
  */
 
-public class UIState {
+public class UIState extends MainActivity{
     private Map<Integer, View> uiViews;
     public UIState() {
         uiViews = new HashMap<Integer, View>();
