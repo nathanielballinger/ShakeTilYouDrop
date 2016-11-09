@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity
         if (newPlayerInfo != null)
             playerInfo = newPlayerInfo;
         playerInfo.setPlayerInfoController(gameUI);
+        playerInfo.resetRound();
         Toast.makeText(getApplicationContext(), "Num Coins is " + playerInfo.getNumCoins(), Toast.LENGTH_SHORT).show();
     }
 
