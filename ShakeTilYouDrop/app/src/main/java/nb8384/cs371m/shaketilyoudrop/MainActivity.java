@@ -12,61 +12,43 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements ShakeListener.OnShakeListener {
+public class MainActivity extends AppCompatActivity
+        implements ActivityLauncher.ActivityLauncherListener,
+        PlayerInfoController.PlayerInfoControllerListener {
 
     private SensorManager mSensorManager;
     private Sensor motionSensor;
     private ShakeListener shakeListener;
-    private UIState uiState;
+    private MainGameUI gameUI;
+    private PlayerInfo playerInfo;
+
     String username = "Test Username"; //Dummy Username!!!!!!! Change later
-    TextView userText, timeText;
-    ImageView shaker;
-    Button reset, store;
-
-
-    DisplayMetrics dimensions;
-
     private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        dimensions = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(dimensions);
-        int screenHeight = dimensions.heightPixels;
-        int screenWidth = dimensions.widthPixels;
 
-        int userSize = (int) (screenWidth * 0.025);
-        userText = (TextView) findViewById(R.id.userText);
-        userText.setTextSize(TypedValue.COMPLEX_UNIT_SP, userSize);
-        userText.setText(username);
 
-        int shakerHeight = (int) (screenHeight * 0.5);
-        int shakerWidgth = (int) (screenWidth * 0.5);
-        shaker = (ImageView) findViewById(R.id.shakerView);
-        shaker.getLayoutParams().height = shakerHeight;
-        shaker.getLayoutParams().width = shakerWidgth;
+        gameUI = new MainGameUI(this);
+        gameUI.setActivityLauncherListener(this);
+        gameUI.setPlayerInfoControllerListener(this);
 
-        reset = (Button) findViewById(R.id.resetButton);
-        store = (Button) findViewById(R.id.storeButton);
-        reset.setTextSize(TypedValue.COMPLEX_UNIT_SP, userSize);
-        store.setTextSize(TypedValue.COMPLEX_UNIT_SP, userSize);
-
-        timeText = (TextView) findViewById(R.id.timeText);
-        timeText.setTextSize(TypedValue.COMPLEX_UNIT_SP, userSize/2);
-
-        uiState = new UIState();
-        uiState.addView(findViewById(R.id.numShakesText));
-
+        playerInfo = new PlayerInfo(username, gameUI);
 
         shakeListener = new ShakeListener(getApplicationContext());
-        shakeListener.setOnShakeListener(this);
+        shakeListener.setOnShakeListener(gameUI);
+
+
 
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         motionSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -79,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements ShakeListener.OnS
 
         @Override
         public void run() {
-
+            // call playerInfo.addToTimePlayer(long timeInMilliSeconds)
         }
     };
 
@@ -95,8 +77,23 @@ public class MainActivity extends AppCompatActivity implements ShakeListener.OnS
         mSensorManager.unregisterListener(shakeListener);
     }
 
+
     @Override
-    public void onShake(SensorEvent event) {
-        uiState.shake();
+    public void launchActivity(Class<? extends AppCompatActivity> activityClass) {
+        Intent intent = new Intent(getApplicationContext(), activityClass);
+        intent.putExtra("PlayerInfo", playerInfo);
+        startActivity(intent);
     }
+
+    @Override
+    public void onShakeCountReset() {
+        playerInfo.resetRound();
+    }
+
+    @Override
+    public void onShake() {
+        playerInfo.shake();
+    }
+
+
 }
