@@ -22,7 +22,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
         implements ActivityLauncher.ActivityLauncherListener,
-        PlayerInfoController.PlayerInfoControllerListener {
+        MainGamePlayerInfoController.ControllerListener {
 
     private SensorManager mSensorManager;
     private Sensor motionSensor;
@@ -41,9 +41,9 @@ public class MainActivity extends AppCompatActivity
 
         gameUI = new MainGameUI(this);
         gameUI.setActivityLauncherListener(this);
-        gameUI.setPlayerInfoControllerListener(this);
+        gameUI.setControllerListener(this);
 
-        playerInfo = new PlayerInfo(username, gameUI);
+        playerInfo = new PlayerInfo(username);
 
         shakeListener = new ShakeListener(getApplicationContext());
         shakeListener.setOnShakeListener(gameUI);
@@ -69,12 +69,19 @@ public class MainActivity extends AppCompatActivity
     protected void onResume() {
         super.onResume();
         mSensorManager.registerListener(shakeListener, motionSensor, SensorManager.SENSOR_DELAY_GAME);
+
+        PlayerInfo newPlayerInfo = (PlayerInfo) getIntent().getSerializableExtra("PlayerInfo");
+        if (newPlayerInfo != null)
+            playerInfo = newPlayerInfo;
+        playerInfo.setPlayerInfoController(gameUI);
+        Toast.makeText(getApplicationContext(), "Num Coins is " + playerInfo.getNumCoins(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         mSensorManager.unregisterListener(shakeListener);
+        playerInfo.unregisterPlayerInfoController();
     }
 
 

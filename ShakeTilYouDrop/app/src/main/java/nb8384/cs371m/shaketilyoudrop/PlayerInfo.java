@@ -8,20 +8,28 @@ import java.util.List;
  */
 
 public class PlayerInfo implements java.io.Serializable {
-    private PlayerInfoController controller;
+    private transient PlayerInfoController controller;
     private String userName;
     private int numTotalShakes;
     private int numShakes;
     private int numCoins;
     private long timePlayed;
 
-    public PlayerInfo(String userName, PlayerInfoController controller) {
-        this.controller = controller;
+    public PlayerInfo(String userName) {
         this.userName = userName;
         numTotalShakes = 0;
         numShakes = 0;
         numCoins = 0;
         timePlayed = 0;
+    }
+
+    public void setPlayerInfoController(PlayerInfoController controller) {
+        this.controller = controller;
+        this.controller.onPlayerInfoUpdate(this);
+    }
+
+    public void unregisterPlayerInfoController() {
+        controller = null;
     }
 
     /**
@@ -33,18 +41,30 @@ public class PlayerInfo implements java.io.Serializable {
         if (numShakes % 100 == 0)
             numCoins++;
 
-        controller.updateUI(this);
+        if (controller != null)
+            controller.onPlayerInfoUpdate(this);
 
+    }
+
+    public void purchase(int coins) {
+        // add whatever I purchase to inventory
+
+        numCoins -= coins;
+
+        if(controller != null)
+            controller.onPlayerInfoUpdate(this);
     }
 
     public void addToTimePlayed(long timePlayed) {
         this.timePlayed += timePlayed;
-        controller.updateUI(this);
+        if (controller != null)
+            controller.onPlayerInfoUpdate(this);
     }
 
     public void resetRound() {
         numShakes = 0;
-        controller.updateUI(this);
+        if (controller != null)
+            controller.onPlayerInfoUpdate(this);
     }
 
     public int getNumCoins() {

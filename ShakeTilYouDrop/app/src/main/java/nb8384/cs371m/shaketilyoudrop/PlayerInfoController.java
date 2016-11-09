@@ -6,12 +6,6 @@ package nb8384.cs371m.shaketilyoudrop;
 
 public interface PlayerInfoController {
 
-    interface PlayerInfoControllerListener {
-        void onShakeCountReset();
-        void onShake();
-    }
-
-    void updateUI(PlayerInfo playerInfo);
-    void setPlayerInfoControllerListener(PlayerInfoControllerListener listener);
+    void onPlayerInfoUpdate(PlayerInfo playerInfo);
 
 }

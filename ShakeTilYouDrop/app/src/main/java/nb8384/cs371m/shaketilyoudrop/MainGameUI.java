@@ -25,11 +25,11 @@ import java.util.Map;
  */
 
 public class MainGameUI
-        implements ShakeListener.OnShakeListener, PlayerInfoController, ActivityLauncher {
+        implements ShakeListener.OnShakeListener, MainGamePlayerInfoController, ActivityLauncher {
 
 
     private ActivityLauncherListener activityLauncherListener;
-    private PlayerInfoControllerListener playerInfoControllerListener;
+    private ControllerListener controllerListener;
 
     private TextView userText, timeText, numShakesText;
     private ImageView shaker;
@@ -79,7 +79,7 @@ public class MainGameUI
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                playerInfoControllerListener.onShakeCountReset();
+                controllerListener.onShakeCountReset();
             }
         });
         store.setOnClickListener(new View.OnClickListener() {
@@ -93,7 +93,7 @@ public class MainGameUI
     }
 
     @Override
-    public void updateUI(PlayerInfo playerInfo) {
+    public void onPlayerInfoUpdate(PlayerInfo playerInfo) {
         userText.setText(playerInfo.getUserName());
         timeText.setText(Long.toString(playerInfo.getTimePlayed()));
         numShakesText.setText(Integer.toString(playerInfo.getNumShakes()));
@@ -101,8 +101,8 @@ public class MainGameUI
     }
 
     @Override
-    public void setPlayerInfoControllerListener(PlayerInfoControllerListener listener) {
-        playerInfoControllerListener = listener;
+    public void setControllerListener(ControllerListener listener) {
+        controllerListener = listener;
     }
 
     @Override
@@ -114,6 +114,6 @@ public class MainGameUI
     public void onShake(SensorEvent evt) {
         // animate shaker image, play sounds, etc. here
 
-        playerInfoControllerListener.onShake();
+        controllerListener.onShake();
     }
 }
