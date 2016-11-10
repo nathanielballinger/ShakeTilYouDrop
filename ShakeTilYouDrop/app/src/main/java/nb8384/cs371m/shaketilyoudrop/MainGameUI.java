@@ -120,6 +120,7 @@ public class MainGameUI
         userText.setText(playerInfo.getUserName());
         timeText.setText(Long.toString(playerInfo.getTimePlayed()));
         numShakesText.setText(Integer.toString(playerInfo.getNumShakes()));
+        currCoinsText.setText(Integer.toString(playerInfo.getNumCoins()));
 
     }
 
