@@ -31,9 +31,10 @@ public class MainGameUI
     private ActivityLauncherListener activityLauncherListener;
     private ControllerListener controllerListener;
 
-    private TextView userText, timeText, numShakesText;
+    private TextView userText, timeText, numShakesText, timeStaticText, numShakesStaticText;
+    private TextView currCoinsStaticText, currCoinsText, totalCoinsStaticText, totalCoinsText;
     private ImageView shaker;
-    private Button reset, store;
+    private Button reset, store, profile;
     private DisplayMetrics dimensions;
 
     public MainGameUI(AppCompatActivity activity) {
@@ -47,11 +48,19 @@ public class MainGameUI
         userText = (TextView) activity.findViewById(R.id.userText);
         timeText = (TextView) activity.findViewById(R.id.timeText);
         numShakesText = (TextView) activity.findViewById(R.id.numShakesText);
+        timeStaticText = (TextView) activity.findViewById(R.id.timeStaticText);
+        numShakesStaticText = (TextView) activity.findViewById(R.id.numShakesStaticText);
+
+        currCoinsStaticText = (TextView) activity.findViewById(R.id.currCoinsStaticText);
+        currCoinsText = (TextView) activity.findViewById(R.id.currCoinsText);
+        totalCoinsStaticText = (TextView) activity.findViewById(R.id.totalCoinsStaticText);
+        totalCoinsText = (TextView) activity.findViewById(R.id.totalCoinsText);
 
         shaker = (ImageView) activity.findViewById(R.id.shakerView);
 
         reset = (Button) activity.findViewById(R.id.resetButton);
         store = (Button) activity.findViewById(R.id.storeButton);
+        profile = (Button) activity.findViewById(R.id.profileButton);
     }
 
     private void initViewValues(AppCompatActivity activity) {
@@ -71,8 +80,17 @@ public class MainGameUI
 
         reset.setTextSize(TypedValue.COMPLEX_UNIT_SP, userSize);
         store.setTextSize(TypedValue.COMPLEX_UNIT_SP, userSize);
+        profile.setTextSize(TypedValue.COMPLEX_UNIT_SP, userSize);
+
 
         timeText.setTextSize(TypedValue.COMPLEX_UNIT_SP, userSize/2);
+        numShakesText.setTextSize(TypedValue.COMPLEX_UNIT_SP, userSize/2);
+        timeStaticText.setTextSize(TypedValue.COMPLEX_UNIT_SP, userSize/2);
+        numShakesStaticText.setTextSize(TypedValue.COMPLEX_UNIT_SP, userSize/2);
+        currCoinsStaticText.setTextSize(TypedValue.COMPLEX_UNIT_SP, userSize/2);
+        currCoinsText.setTextSize(TypedValue.COMPLEX_UNIT_SP, userSize/2);
+        totalCoinsStaticText.setTextSize(TypedValue.COMPLEX_UNIT_SP, userSize/2);
+        totalCoinsText.setTextSize(TypedValue.COMPLEX_UNIT_SP, userSize/2);
     }
 
     private void setViewListeners(AppCompatActivity activity) {
@@ -88,7 +106,12 @@ public class MainGameUI
                 activityLauncherListener.launchActivity(StoreActivity.class);
             }
         });
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
 
     }
 
