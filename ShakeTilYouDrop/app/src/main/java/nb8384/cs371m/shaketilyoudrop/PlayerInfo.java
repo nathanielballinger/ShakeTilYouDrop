@@ -14,7 +14,11 @@ public class PlayerInfo implements java.io.Serializable {
     private int numShakes;
     private int numCoins;
     private long timePlayed;
+    private List<Upgrade> upgrades;
 
+    //upgrades
+    // multiplier for shake:coin
+    // shakes-for-you upgrade
     public PlayerInfo(String userName) {
         this.userName = userName;
         numTotalShakes = 0;
