@@ -1,13 +1,9 @@
 package nb8384.cs371m.shaketilyoudrop;
 
-import android.app.LauncherActivity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class StoreActivity extends AppCompatActivity
         implements ActivityLauncher.ActivityLauncherListener,
@@ -15,7 +11,7 @@ public class StoreActivity extends AppCompatActivity
         ShopUpgradeInfoController.ShopUpgradeControllerListener {
 
     PlayerInfo playerInfo;
-    AvailableUpgrades availableUpgrades;
+    UpgradeList upgradeList;
     StorePageUI storeUI;
 
     @Override
@@ -26,14 +22,14 @@ public class StoreActivity extends AppCompatActivity
         Intent intent = getIntent();
         playerInfo = (PlayerInfo) intent.getSerializableExtra("PlayerInfo");
 
-        AvailableUpgrades temp = (AvailableUpgrades) intent.getSerializableExtra("AvailableUpgrades");
+        UpgradeList temp = (UpgradeList) intent.getSerializableExtra("UpgradeList");
         if (temp != null)
-            availableUpgrades = temp;
+            upgradeList = temp;
         else
-            availableUpgrades = new AvailableUpgrades();
+            upgradeList = new UpgradeList();
 
-        UpgradesAdapter adapter = new UpgradesAdapter(getApplicationContext(), availableUpgrades);
-        availableUpgrades.registerController(adapter);
+        UpgradesAdapter adapter = new UpgradesAdapter(getApplicationContext(), upgradeList);
+        upgradeList.registerController(adapter);
 
         storeUI = new StorePageUI(this, adapter);
 
@@ -42,7 +38,7 @@ public class StoreActivity extends AppCompatActivity
         storeUI.setActivityLauncherListener(this);
 
         playerInfo.setPlayerInfoController(storeUI);
-        availableUpgrades.registerController(storeUI);
+        upgradeList.registerController(storeUI);
 
     }
 
@@ -50,7 +46,7 @@ public class StoreActivity extends AppCompatActivity
     public void launchActivity(Class<? extends AppCompatActivity> activityClass) {
         Intent intent = new Intent(getApplicationContext(), activityClass);
         intent.putExtra("PlayerInfo", playerInfo);
-        intent.putExtra("AvailableUpgrades", availableUpgrades);
+        intent.putExtra("UpgradeList", upgradeList);
         startActivity(intent);
 
     }

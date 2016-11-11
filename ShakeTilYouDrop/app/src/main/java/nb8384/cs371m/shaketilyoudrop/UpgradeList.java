@@ -10,10 +10,10 @@ import java.util.List;
  * Wraps a List of Upgrades for the purpose of Serialization
  */
 
-public class AvailableUpgrades implements Serializable {
+public class UpgradeList implements Serializable {
     private List<Upgrade> availableUpgrades;
 
-    public AvailableUpgrades() {
+    public UpgradeList() {
         availableUpgrades = new ArrayList<Upgrade>();
 
         // add more upgrades here as needed

@@ -31,21 +31,21 @@
         android:textSize="20sp"
         android:textAlignment="center"/>
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/backToGameButton"
-        android:id="@+id/multListView">
-    </ListView>
+        android:id="@+id/upgradeRecyclerView">
+    </android.support.v7.widget.RecyclerView>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/multListView"
+        android:layout_below="@+id/upgradeRecyclerView"
         android:id="@+id/upgradesStaticText"
         android:text="Total Upgrades Bought:"
         android:textSize="20sp"
