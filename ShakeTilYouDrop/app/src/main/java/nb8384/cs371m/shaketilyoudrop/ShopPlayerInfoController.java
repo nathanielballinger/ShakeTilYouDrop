@@ -5,9 +5,9 @@ package nb8384.cs371m.shaketilyoudrop;
  */
 
 public interface ShopPlayerInfoController extends PlayerInfoController {
-    interface ControllerListener {
-        void onAttemptPurchase(int coins);
+    interface ShopPlayerControllerListener {
+        boolean onAttemptPurchase(Upgrade upgrade);
     }
 
-    void setControllerListener(ControllerListener listener);
+    void setPlayerControllerListener(ShopPlayerControllerListener listener);
 }

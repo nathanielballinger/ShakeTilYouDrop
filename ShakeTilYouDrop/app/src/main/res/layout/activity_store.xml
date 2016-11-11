@@ -18,42 +18,29 @@
         android:id="@+id/numCoinsText"
         android:textSize="20sp" />
 
-    <Button
-        android:text="Back To Game"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/backToGame"
-        android:layout_alignBaseline="@+id/purchaseTest"
-        android:layout_alignBottom="@+id/purchaseTest"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:text="Spend 1 Coin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/purchaseTest"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
     <TextView
         android:text="0"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/numCoinsEditable"
         android:textSize="20sp"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/numCoinsText"
-        android:layout_toEndOf="@+id/numCoinsText" />
+        android:layout_toEndOf="@+id/numCoinsText"
+        android:layout_toRightOf="@+id/numCoinsText"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvUpgrades"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/numCoinsEditable"
+        android:layout_above="@+id/backToGame"/>
 
     <Button
-        android:text="Get 1 Free Coin"
-        android:layout_width="wrap_content"
+        android:text="Back To Game"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/numCoinsText"
+        android:id="@+id/backToGame"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="27dp"
-        android:id="@+id/addCoinButton" />
+        android:layout_alignParentStart="true" />
+
 </RelativeLayout>

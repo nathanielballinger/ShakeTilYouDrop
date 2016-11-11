@@ -3,32 +3,23 @@ package nb8384.cs371m.shaketilyoudrop;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
-import android.hardware.SensorEvent;
 import android.hardware.SensorManager;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.TypedValue;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
         implements ActivityLauncher.ActivityLauncherListener,
-        MainGamePlayerInfoController.ControllerListener {
+        MainGamePlayerInfoController.MainPlayerControllerListener {
 
     private SensorManager mSensorManager;
     private Sensor motionSensor;
     private ShakeListener shakeListener;
     private MainGameUI gameUI;
     private PlayerInfo playerInfo;
+    private AvailableUpgrades availableUpgrades;
     private long time = 0;
     Handler handle;
 
@@ -44,7 +35,7 @@ public class MainActivity extends AppCompatActivity
 
         gameUI = new MainGameUI(this);
         gameUI.setActivityLauncherListener(this);
-        gameUI.setControllerListener(this);
+        gameUI.setPlayerControllerListener(this);
 
         playerInfo = new PlayerInfo(username);
 
@@ -81,6 +72,12 @@ public class MainActivity extends AppCompatActivity
             playerInfo = newPlayerInfo;
         playerInfo.setPlayerInfoController(gameUI);
 
+        AvailableUpgrades newAvailableUpgrades =
+                (AvailableUpgrades) getIntent().getSerializableExtra("AvailableUpgrades");
+        if (newAvailableUpgrades != null)
+            availableUpgrades = newAvailableUpgrades;
+
+
         Toast.makeText(getApplicationContext(), "Num Coins is " + playerInfo.getNumCoins(), Toast.LENGTH_SHORT).show();
     }
 
@@ -96,12 +93,13 @@ public class MainActivity extends AppCompatActivity
     public void launchActivity(Class<? extends AppCompatActivity> activityClass) {
         Intent intent = new Intent(getApplicationContext(), activityClass);
         intent.putExtra("PlayerInfo", playerInfo);
+        intent.putExtra("AvailableUpgrades", availableUpgrades);
         startActivity(intent);
     }
 
     @Override
     public void onShakeCountReset() {
-        playerInfo.resetRound();
+        playerInfo.reset();
     }
 
     @Override

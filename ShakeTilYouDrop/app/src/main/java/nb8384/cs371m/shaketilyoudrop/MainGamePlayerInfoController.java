@@ -5,10 +5,10 @@ package nb8384.cs371m.shaketilyoudrop;
  */
 
 public interface MainGamePlayerInfoController extends PlayerInfoController {
-    interface ControllerListener {
+    interface MainPlayerControllerListener {
         void onShakeCountReset();
         void onShake();
     }
 
-    void setControllerListener(ControllerListener listener);
+    void setPlayerControllerListener(MainPlayerControllerListener listener);
 }

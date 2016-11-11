@@ -1,23 +1,13 @@
 package nb8384.cs371m.shaketilyoudrop;
 
-import android.content.Context;
-import android.content.Intent;
 import android.hardware.SensorEvent;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
-import android.util.SparseArray;
 import android.util.TypedValue;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
-import java.util.HashMap;
-import java.util.Map;
 
 
 /**
@@ -29,7 +19,7 @@ public class MainGameUI
 
 
     private ActivityLauncherListener activityLauncherListener;
-    private ControllerListener controllerListener;
+    private MainPlayerControllerListener controllerListener;
 
     private TextView userText, timeText, numShakesText, timeStaticText, numShakesStaticText;
     private TextView currCoinsStaticText, currCoinsText, totalCoinsStaticText, totalCoinsText;
@@ -124,14 +114,14 @@ public class MainGameUI
         long hour = (time / (1000 * 60 * 60)) % 24;
         String timeString = String.format("%02d:%02d:%02d", hour, minute, second);
         timeText.setText(timeString);
-        numShakesText.setText(Integer.toString(playerInfo.getNumShakes()));
+        numShakesText.setText(Integer.toString(playerInfo.getNumPoints()));
         currCoinsText.setText(Integer.toString(playerInfo.getNumCoins()));
         totalCoinsText.setText(Integer.toString(playerInfo.getNumTotalCoins()));
         userText.setText(playerInfo.getUserName());
     }
 
     @Override
-    public void setControllerListener(ControllerListener listener) {
+    public void setPlayerControllerListener(MainPlayerControllerListener listener) {
         controllerListener = listener;
     }
 
