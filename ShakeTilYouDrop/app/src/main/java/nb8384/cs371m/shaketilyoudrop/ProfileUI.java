@@ -1,6 +1,8 @@
 package nb8384.cs371m.shaketilyoudrop;
 
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
@@ -61,9 +63,16 @@ public class ProfileUI implements ProfilePlayerInfoController, ActivityLauncher{
     }
 
     private void setViewListeners(final AppCompatActivity activity) {
-        username.setOnClickListener(new View.OnClickListener(){
+        username.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
                 controllerListener.editUsername(username);
             }
         });
