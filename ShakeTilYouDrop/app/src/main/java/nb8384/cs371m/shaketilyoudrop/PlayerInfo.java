@@ -15,7 +15,7 @@ public class PlayerInfo implements java.io.Serializable {
     private int totalCoins;
     private long timePlayed;
     private int pointsPerShake;
-    private List<Upgrade> upgrades;
+    private UpgradeList upgrades;
 
     public static final int POINTS_PER_COIN = 100;
 
@@ -23,7 +23,7 @@ public class PlayerInfo implements java.io.Serializable {
     // multiplier for shake:coin
     // shakes-for-you upgrade
     public PlayerInfo(String userName) {
-        upgrades = new ArrayList<Upgrade>();
+        upgrades = new UpgradeList();
         this.userName = userName;
         numPoints = 0;
         numCoins = 0;
@@ -57,7 +57,7 @@ public class PlayerInfo implements java.io.Serializable {
 
     public void purchase(Upgrade upgrade) {
         // add whatever I purchase to inventory
-        upgrades.add(upgrade);
+        upgrades.getList().add(upgrade);
         upgrade.apply(this);
         numCoins -= upgrade.getPrice();
 
@@ -72,7 +72,7 @@ public class PlayerInfo implements java.io.Serializable {
     }
 
     public void reset() {
-        upgrades.clear();
+        upgrades.getList().clear();
         numPoints = 0;
         numCoins = 0;
         totalCoins = 0;
@@ -109,11 +109,15 @@ public class PlayerInfo implements java.io.Serializable {
     }
 
     public int getNumActiveUpgrades() {
-        return upgrades.size();
+        return upgrades.getList().size();
     }
 
     public int getPointsPerShake() {
         return pointsPerShake;
+    }
+
+    public UpgradeList getActiveUpgrades() {
+        return upgrades;
     }
 
     /**

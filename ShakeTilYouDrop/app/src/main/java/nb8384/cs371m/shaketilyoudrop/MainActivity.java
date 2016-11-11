@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity
     private ShakeListener shakeListener;
     private MainGameUI gameUI;
     private PlayerInfo playerInfo;
-    private AvailableUpgrades availableUpgrades;
+    private UpgradeList upgradeList;
     private long time = 0;
     Handler handle;
 
@@ -72,10 +72,10 @@ public class MainActivity extends AppCompatActivity
             playerInfo = newPlayerInfo;
         playerInfo.setPlayerInfoController(gameUI);
 
-        AvailableUpgrades newAvailableUpgrades =
-                (AvailableUpgrades) getIntent().getSerializableExtra("AvailableUpgrades");
-        if (newAvailableUpgrades != null)
-            availableUpgrades = newAvailableUpgrades;
+        UpgradeList newUpgradeList =
+                (UpgradeList) getIntent().getSerializableExtra("UpgradeList");
+        if (newUpgradeList != null)
+            upgradeList = newUpgradeList;
 
 
         Toast.makeText(getApplicationContext(), "Num Coins is " + playerInfo.getNumCoins(), Toast.LENGTH_SHORT).show();
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity
     public void launchActivity(Class<? extends AppCompatActivity> activityClass) {
         Intent intent = new Intent(getApplicationContext(), activityClass);
         intent.putExtra("PlayerInfo", playerInfo);
-        intent.putExtra("AvailableUpgrades", availableUpgrades);
+        intent.putExtra("UpgradeList", upgradeList);
         startActivity(intent);
     }
 

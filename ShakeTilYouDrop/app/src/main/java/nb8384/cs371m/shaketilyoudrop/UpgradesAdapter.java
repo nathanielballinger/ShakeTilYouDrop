@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.Iterator;
 import java.util.List;
 
 
@@ -45,9 +44,9 @@ public class UpgradesAdapter extends RecyclerView.Adapter<UpgradesAdapter.ViewHo
     private Context mContext;
     private UpgradesAdapterListener listener;
 
-    public UpgradesAdapter(Context context, AvailableUpgrades availableUpgrades) {
+    public UpgradesAdapter(Context context, UpgradeList upgradeList) {
         mContext = context;
-        mUpgrades = availableUpgrades.getList();
+        mUpgrades = upgradeList.getList();
     }
 
 
@@ -76,17 +75,21 @@ public class UpgradesAdapter extends RecyclerView.Adapter<UpgradesAdapter.ViewHo
     @Override
     public void onBindViewHolder(UpgradesAdapter.ViewHolder viewHolder, int position) {
         final Upgrade upgrade = mUpgrades.get(position);
-
-        viewHolder.purchaseButton.setText(upgrade.getPrice() + " coins");
         viewHolder.upgradeName.setText(upgrade.getName());
 
-        viewHolder.purchaseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (listener != null)
-                    listener.onPurchaseButtonPressed(upgrade);
-            }
-        });
+        if (viewHolder.purchaseButton != null) {
+
+            viewHolder.purchaseButton.setText(upgrade.getPrice() + " coins");
+
+
+            viewHolder.purchaseButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null)
+                        listener.onPurchaseButtonPressed(upgrade);
+                }
+            });
+        }
     }
 
     @Override

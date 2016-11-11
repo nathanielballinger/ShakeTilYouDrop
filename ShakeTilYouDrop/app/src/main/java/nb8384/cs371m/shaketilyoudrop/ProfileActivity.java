@@ -3,6 +3,7 @@ package nb8384.cs371m.shaketilyoudrop;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -13,7 +14,8 @@ import org.w3c.dom.Text;
  */
 
 public class ProfileActivity extends AppCompatActivity
-    implements ActivityLauncher.ActivityLauncherListener, ProfilePlayerInfoController.ControllerListener{
+    implements ActivityLauncher.ActivityLauncherListener,
+        ProfilePlayerInfoController.ControllerListener {
 
     PlayerInfo playerInfo;
     ProfileUI profileUI;
@@ -25,7 +27,9 @@ public class ProfileActivity extends AppCompatActivity
         Intent intent = getIntent();
         playerInfo = (PlayerInfo) intent.getSerializableExtra("PlayerInfo");
 
-        profileUI = new ProfileUI(this);
+        UpgradesAdapter adapter = new UpgradesAdapter(getApplicationContext(), playerInfo.getActiveUpgrades());
+
+        profileUI = new ProfileUI(this, adapter);
         profileUI.setControllerListener(this);
         profileUI.setActivityLauncherListener(this);
         playerInfo.setPlayerInfoController(profileUI);
