@@ -15,9 +15,6 @@ public class UpgradeList implements Serializable {
 
     public UpgradeList() {
         availableUpgrades = new ArrayList<Upgrade>();
-
-        // add more upgrades here as needed
-        availableUpgrades.add(new ShakeMultiplierUpgrade("Multiply Points per Shake by 2", 1, 2));
     }
 
     public List<Upgrade> getList() {
@@ -27,6 +24,11 @@ public class UpgradeList implements Serializable {
     public void registerController(UpgradeInfoController controller) {
         for (Upgrade upgrade : availableUpgrades)
             upgrade.registerController(controller);
+    }
+
+    public void populateWithAllUpgrades() {
+        // add more upgrades here as needed
+        availableUpgrades.add(new ShakeMultiplierUpgrade("Multiply Points per Shake by 2", 1, 2));
     }
 
 }

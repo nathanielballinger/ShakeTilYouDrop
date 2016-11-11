@@ -34,7 +34,7 @@ public class PlayerInfo implements java.io.Serializable {
 
     public void setPlayerInfoController(PlayerInfoController controller) {
         this.controller = controller;
-        this.controller.onPlayerInfoUpdate(this);
+        this.controller.onPlayerInfoInit(this);
     }
 
     public void unregisterPlayerInfoController() {

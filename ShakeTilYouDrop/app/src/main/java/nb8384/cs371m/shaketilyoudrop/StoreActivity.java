@@ -10,9 +10,9 @@ public class StoreActivity extends AppCompatActivity
         ShopPlayerInfoController.ShopPlayerControllerListener,
         ShopUpgradeInfoController.ShopUpgradeControllerListener {
 
-    PlayerInfo playerInfo;
-    UpgradeList upgradeList;
-    StorePageUI storeUI;
+    private PlayerInfo playerInfo;
+    private UpgradeList availableUpgrades;
+    private StorePageUI storeUI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,12 +24,15 @@ public class StoreActivity extends AppCompatActivity
 
         UpgradeList temp = (UpgradeList) intent.getSerializableExtra("UpgradeList");
         if (temp != null)
-            upgradeList = temp;
-        else
-            upgradeList = new UpgradeList();
+            availableUpgrades = temp;
+        else {
+            availableUpgrades = new UpgradeList();
+            availableUpgrades.populateWithAllUpgrades();
+        }
 
-        UpgradesAdapter adapter = new UpgradesAdapter(getApplicationContext(), upgradeList);
-        upgradeList.registerController(adapter);
+        UpgradesAdapter adapter = new UpgradesAdapter(getApplicationContext(),
+                availableUpgrades, R.layout.item_upgrade);
+        availableUpgrades.registerController(adapter);
 
         storeUI = new StorePageUI(this, adapter);
 
@@ -38,15 +41,29 @@ public class StoreActivity extends AppCompatActivity
         storeUI.setActivityLauncherListener(this);
 
         playerInfo.setPlayerInfoController(storeUI);
-        upgradeList.registerController(storeUI);
+        availableUpgrades.registerController(storeUI);
 
+    }
+
+    @Override
+    protected void onResume() {
+        Intent intent = getIntent();
+        playerInfo = (PlayerInfo) intent.getSerializableExtra("PlayerInfo");
+
+        UpgradeList temp = (UpgradeList) intent.getSerializableExtra("UpgradeList");
+        if (temp != null)
+            availableUpgrades = temp;
+        else {
+            availableUpgrades = new UpgradeList();
+            availableUpgrades.populateWithAllUpgrades();
+        }
     }
 
     @Override
     public void launchActivity(Class<? extends AppCompatActivity> activityClass) {
         Intent intent = new Intent(getApplicationContext(), activityClass);
         intent.putExtra("PlayerInfo", playerInfo);
-        intent.putExtra("UpgradeList", upgradeList);
+        intent.putExtra("UpgradeList", availableUpgrades);
         startActivity(intent);
 
     }

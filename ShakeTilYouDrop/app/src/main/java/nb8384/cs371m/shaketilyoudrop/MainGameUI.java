@@ -106,6 +106,11 @@ public class MainGameUI
     }
 
     @Override
+    public void onPlayerInfoInit(PlayerInfo playerInfo) {
+        onPlayerInfoUpdate(playerInfo);
+    }
+
+    @Override
     public void onPlayerInfoUpdate(PlayerInfo playerInfo) {
         userText.setText(playerInfo.getUserName());
         long time = playerInfo.getTimePlayed();

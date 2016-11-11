@@ -43,10 +43,12 @@ public class UpgradesAdapter extends RecyclerView.Adapter<UpgradesAdapter.ViewHo
     private List<Upgrade> mUpgrades;
     private Context mContext;
     private UpgradesAdapterListener listener;
+    private int layoutResourceID;
 
-    public UpgradesAdapter(Context context, UpgradeList upgradeList) {
+    public UpgradesAdapter(Context context, UpgradeList upgradeList, int layoutResourceID) {
         mContext = context;
         mUpgrades = upgradeList.getList();
+        this.layoutResourceID = layoutResourceID;
     }
 
 
@@ -67,7 +69,7 @@ public class UpgradesAdapter extends RecyclerView.Adapter<UpgradesAdapter.ViewHo
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
-        View upgradeView = inflater.inflate(R.layout.item_upgrade, parent, false);
+        View upgradeView = inflater.inflate(layoutResourceID, parent, false);
 
         return new ViewHolder(upgradeView);
     }

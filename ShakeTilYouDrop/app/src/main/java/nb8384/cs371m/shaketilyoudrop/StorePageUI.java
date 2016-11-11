@@ -73,6 +73,11 @@ public class StorePageUI
     }
 
     @Override
+    public void onPlayerInfoInit(PlayerInfo playerInfo) {
+        onPlayerInfoUpdate(playerInfo);
+    }
+
+    @Override
     public void onPlayerInfoUpdate(PlayerInfo playerInfo) {
         numCoins.setText(Integer.toString(playerInfo.getNumCoins()));
     }

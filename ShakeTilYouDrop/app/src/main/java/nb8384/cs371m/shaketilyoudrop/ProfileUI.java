@@ -98,7 +98,13 @@ public class ProfileUI implements
     }
 
     @Override
+    public void onPlayerInfoInit(PlayerInfo playerInfo) {
+        username.setText(playerInfo.getUserName());
+    }
+
+    @Override
     public void onPlayerInfoUpdate(PlayerInfo playerInfo) {
+
     }
 
     @Override
