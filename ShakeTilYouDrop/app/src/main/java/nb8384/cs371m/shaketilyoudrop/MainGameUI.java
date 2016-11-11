@@ -121,7 +121,7 @@ public class MainGameUI
         timeText.setText(Long.toString(playerInfo.getTimePlayed()));
         numShakesText.setText(Integer.toString(playerInfo.getNumShakes()));
         currCoinsText.setText(Integer.toString(playerInfo.getNumCoins()));
-
+        totalCoinsText.setText(Integer.toString(playerInfo.getNumTotalCoins()));
     }
 
     @Override
