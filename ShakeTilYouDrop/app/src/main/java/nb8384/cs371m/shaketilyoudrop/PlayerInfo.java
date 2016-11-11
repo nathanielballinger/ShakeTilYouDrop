@@ -71,8 +71,13 @@ public class PlayerInfo implements java.io.Serializable {
             controller.onPlayerInfoUpdate(this);
     }
 
-    public void resetRound() {
+    public void reset() {
+        upgrades.clear();
         numPoints = 0;
+        numCoins = 0;
+        totalCoins = 0;
+        timePlayed = 0;
+        pointsPerShake = 1;
         if (controller != null)
             controller.onPlayerInfoUpdate(this);
     }
