@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity
     private MainGameUI gameUI;
     private PlayerInfo playerInfo;
     private AvailableUpgrades availableUpgrades;
+    private long time = 0;
+    Handler handle;
 
     String username = "Test Username"; //Dummy Username!!!!!!! Change later
     private static final String TAG = "MainActivity";
@@ -38,7 +40,8 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        handle = new Handler();
+        handle.postDelayed(realTime, 1000);
 
         gameUI = new MainGameUI(this);
         gameUI.setActivityLauncherListener(this);
@@ -57,13 +60,17 @@ public class MainActivity extends AppCompatActivity
             Log.i(TAG, "Motion sensor not found!");
 
     }
-
     public Runnable realTime = new Runnable(){
 
         @Override
         public void run() {
+            System.out.println("here");
+            time = 1000;
+            playerInfo.addToTimePlayed(time);
             // call playerInfo.addToTimePlayer(long timeInMilliSeconds)
+            handle.postDelayed(realTime, 1000);
         }
+
     };
 
     @Override

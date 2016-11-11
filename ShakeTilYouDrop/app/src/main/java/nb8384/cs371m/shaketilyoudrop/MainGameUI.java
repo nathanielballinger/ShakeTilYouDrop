@@ -118,10 +118,15 @@ public class MainGameUI
     @Override
     public void onPlayerInfoUpdate(PlayerInfo playerInfo) {
         userText.setText(playerInfo.getUserName());
-        timeText.setText(Long.toString(playerInfo.getTimePlayed()));
+        long time = playerInfo.getTimePlayed();
+        long second = (time / 1000) % 60;
+        long minute = (time / (1000 * 60)) % 60;
+        long hour = (time / (1000 * 60 * 60)) % 24;
+        String timeString = String.format("%02d:%02d:%02d", hour, minute, second);
+        timeText.setText(timeString);
         numShakesText.setText(Integer.toString(playerInfo.getNumShakes()));
         currCoinsText.setText(Integer.toString(playerInfo.getNumCoins()));
-
+        totalCoinsText.setText(Integer.toString(playerInfo.getNumTotalCoins()));
     }
 
     @Override

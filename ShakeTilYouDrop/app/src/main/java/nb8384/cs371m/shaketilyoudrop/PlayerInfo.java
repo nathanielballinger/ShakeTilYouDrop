@@ -10,9 +10,9 @@ import java.util.List;
 public class PlayerInfo implements java.io.Serializable {
     private transient PlayerInfoController controller;
     private String userName;
-    private int numTotalShakes;
     private int numShakes;
     private int numCoins;
+    private int totalCoins;
     private long timePlayed;
     private List<Upgrade> upgrades;
 
@@ -22,9 +22,9 @@ public class PlayerInfo implements java.io.Serializable {
     public PlayerInfo(String userName) {
         upgrades = new ArrayList<Upgrade>();
         this.userName = userName;
-        numTotalShakes = 0;
         numShakes = 0;
         numCoins = 0;
+        totalCoins = 0;
         timePlayed = 0;
     }
 
@@ -42,9 +42,10 @@ public class PlayerInfo implements java.io.Serializable {
      */
     public void shake(){
         numShakes++;
-        numTotalShakes++;
-        if (numShakes % 100 == 0)
+        if (numShakes % 100 == 0) {
             numCoins++;
+            totalCoins++;
+        }
 
         if (controller != null)
             controller.onPlayerInfoUpdate(this);
@@ -76,8 +77,8 @@ public class PlayerInfo implements java.io.Serializable {
         return numCoins;
     }
 
-    public int getNumTotalShakes() {
-        return numTotalShakes;
+    public int getNumTotalCoins() {
+        return totalCoins;
     }
 
     public int getNumShakes() {
