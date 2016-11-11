@@ -18,4 +18,9 @@ public class ShakeMultiplierUpgrade extends Upgrade {
     public int getMultiplier() {
         return multiplier;
     }
+
+    @Override
+    public void apply(PlayerInfo playerInfo) {
+        playerInfo.combineIntoMultiplier(multiplier);
+    }
 }

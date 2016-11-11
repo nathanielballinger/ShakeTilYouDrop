@@ -45,4 +45,6 @@ public abstract class Upgrade implements Serializable {
             c.onUpgradeInfoUpdate(this);
         }
     }
+
+    public abstract void apply(PlayerInfo playerInfo);
 }

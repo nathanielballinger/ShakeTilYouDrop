@@ -10,11 +10,14 @@ import java.util.List;
 public class PlayerInfo implements java.io.Serializable {
     private transient PlayerInfoController controller;
     private String userName;
-    private int numShakes;
+    private int numPoints;
     private int numCoins;
     private int totalCoins;
     private long timePlayed;
+    private int pointsPerShake;
     private List<Upgrade> upgrades;
+
+    public static final int POINTS_PER_COIN = 100;
 
     //upgrades
     // multiplier for shake:coin
@@ -22,10 +25,11 @@ public class PlayerInfo implements java.io.Serializable {
     public PlayerInfo(String userName) {
         upgrades = new ArrayList<Upgrade>();
         this.userName = userName;
-        numShakes = 0;
+        numPoints = 0;
         numCoins = 0;
         totalCoins = 0;
         timePlayed = 0;
+        pointsPerShake = 1;
     }
 
     public void setPlayerInfoController(PlayerInfoController controller) {
@@ -38,14 +42,13 @@ public class PlayerInfo implements java.io.Serializable {
     }
 
     /**
-     * increments total number of shakes and number of coins every X shakes
+     * increments total number of points and number of coins based on POINTS_PER_COIN
      */
     public void shake(){
-        numShakes++;
-        if (numShakes % 100 == 0) {
-            numCoins++;
-            totalCoins++;
-        }
+        int oldNumPoints = numPoints;
+        numPoints += pointsPerShake;
+
+        addNewCoins(oldNumPoints, numPoints);
 
         if (controller != null)
             controller.onPlayerInfoUpdate(this);
@@ -55,6 +58,7 @@ public class PlayerInfo implements java.io.Serializable {
     public void purchase(Upgrade upgrade) {
         // add whatever I purchase to inventory
         upgrades.add(upgrade);
+        upgrade.apply(this);
         numCoins -= upgrade.getPrice();
 
         if(controller != null)
@@ -68,7 +72,7 @@ public class PlayerInfo implements java.io.Serializable {
     }
 
     public void resetRound() {
-        numShakes = 0;
+        numPoints = 0;
         if (controller != null)
             controller.onPlayerInfoUpdate(this);
     }
@@ -81,8 +85,8 @@ public class PlayerInfo implements java.io.Serializable {
         return totalCoins;
     }
 
-    public int getNumShakes() {
-        return numShakes;
+    public int getNumPoints() {
+        return numPoints;
     }
 
     public long getTimePlayed() {
@@ -95,6 +99,28 @@ public class PlayerInfo implements java.io.Serializable {
 
     public int getNumActiveUpgrades() {
         return upgrades.size();
+    }
+
+    public int getPointsPerShake() {
+        return pointsPerShake;
+    }
+
+    /**
+     * multiplies the pointsPerShake into the current pointsPerShake
+     * @param shakeMultiplier multiplier (usually of an Upgrade) to be added in
+     */
+    public void combineIntoMultiplier(int shakeMultiplier) {
+        this.pointsPerShake *= shakeMultiplier;
+    }
+
+
+    private void addNewCoins(int oldNumPoints, int newNumPoints) {
+        int diff = newNumPoints - oldNumPoints;
+        if (diff >= POINTS_PER_COIN)
+            numCoins += diff / POINTS_PER_COIN;
+
+        if (newNumPoints % POINTS_PER_COIN < oldNumPoints % POINTS_PER_COIN)
+            numCoins++;
     }
 
 
