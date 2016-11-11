@@ -72,6 +72,12 @@ public class PlayerInfo implements java.io.Serializable {
             controller.onPlayerInfoUpdate(this);
     }
 
+    public void changeUsername(String username){
+        userName = username;
+        if (controller != null)
+            controller.onPlayerInfoUpdate(this);
+    }
+
     public int getNumCoins() {
         return numCoins;
     }

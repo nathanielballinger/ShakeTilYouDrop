@@ -8,6 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#109ED7"
     tools:context="nb8384.cs371m.shaketilyoudrop.StoreActivity">
 
     <TextView

@@ -93,7 +93,7 @@ public class MainGameUI
         totalCoinsText.setTextSize(TypedValue.COMPLEX_UNIT_SP, userSize/2);
     }
 
-    private void setViewListeners(AppCompatActivity activity) {
+    private void setViewListeners(final AppCompatActivity activity) {
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,7 +109,7 @@ public class MainGameUI
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                activityLauncherListener.launchActivity(ProfileActivity.class);
             }
         });
 
@@ -127,6 +127,7 @@ public class MainGameUI
         numShakesText.setText(Integer.toString(playerInfo.getNumShakes()));
         currCoinsText.setText(Integer.toString(playerInfo.getNumCoins()));
         totalCoinsText.setText(Integer.toString(playerInfo.getNumTotalCoins()));
+        userText.setText(playerInfo.getUserName());
     }
 
     @Override

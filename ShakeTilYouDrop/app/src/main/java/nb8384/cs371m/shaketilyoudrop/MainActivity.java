@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity
     private long time = 0;
     Handler handle;
 
-    String username = "Test Username"; //Dummy Username!!!!!!! Change later
+    String username = "Default Username"; //Dummy Username!!!!!!! Change later
     private static final String TAG = "MainActivity";
 
     @Override
@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity
 
         @Override
         public void run() {
-            System.out.println("here");
             time = 1000;
             playerInfo.addToTimePlayed(time);
             // call playerInfo.addToTimePlayer(long timeInMilliSeconds)
