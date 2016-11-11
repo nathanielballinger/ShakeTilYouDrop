@@ -20,6 +20,7 @@ public class PlayerInfo implements java.io.Serializable {
     // multiplier for shake:coin
     // shakes-for-you upgrade
     public PlayerInfo(String userName) {
+        upgrades = new ArrayList<Upgrade>();
         this.userName = userName;
         numTotalShakes = 0;
         numShakes = 0;
@@ -50,10 +51,10 @@ public class PlayerInfo implements java.io.Serializable {
 
     }
 
-    public void purchase(int coins) {
+    public void purchase(Upgrade upgrade) {
         // add whatever I purchase to inventory
-
-        numCoins -= coins;
+        upgrades.add(upgrade);
+        numCoins -= upgrade.getPrice();
 
         if(controller != null)
             controller.onPlayerInfoUpdate(this);
@@ -90,4 +91,10 @@ public class PlayerInfo implements java.io.Serializable {
     public String getUserName() {
         return userName;
     }
+
+    public int getNumActiveUpgrades() {
+        return upgrades.size();
+    }
+
+
 }

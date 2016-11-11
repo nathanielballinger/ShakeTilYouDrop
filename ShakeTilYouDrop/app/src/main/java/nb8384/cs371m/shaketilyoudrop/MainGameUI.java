@@ -29,7 +29,7 @@ public class MainGameUI
 
 
     private ActivityLauncherListener activityLauncherListener;
-    private ControllerListener controllerListener;
+    private MainPlayerControllerListener controllerListener;
 
     private TextView userText, timeText, numShakesText, timeStaticText, numShakesStaticText;
     private TextView currCoinsStaticText, currCoinsText, totalCoinsStaticText, totalCoinsText;
@@ -125,7 +125,7 @@ public class MainGameUI
     }
 
     @Override
-    public void setControllerListener(ControllerListener listener) {
+    public void setPlayerControllerListener(MainPlayerControllerListener listener) {
         controllerListener = listener;
     }
 

@@ -5,7 +5,6 @@ package nb8384.cs371m.shaketilyoudrop;
  */
 
 public interface PlayerInfoController {
-
     void onPlayerInfoUpdate(PlayerInfo playerInfo);
 
 }

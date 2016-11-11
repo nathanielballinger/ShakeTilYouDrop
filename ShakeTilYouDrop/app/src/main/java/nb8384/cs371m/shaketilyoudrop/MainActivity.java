@@ -22,13 +22,14 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
         implements ActivityLauncher.ActivityLauncherListener,
-        MainGamePlayerInfoController.ControllerListener {
+        MainGamePlayerInfoController.MainPlayerControllerListener {
 
     private SensorManager mSensorManager;
     private Sensor motionSensor;
     private ShakeListener shakeListener;
     private MainGameUI gameUI;
     private PlayerInfo playerInfo;
+    private AvailableUpgrades availableUpgrades;
 
     String username = "Test Username"; //Dummy Username!!!!!!! Change later
     private static final String TAG = "MainActivity";
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity
 
         gameUI = new MainGameUI(this);
         gameUI.setActivityLauncherListener(this);
-        gameUI.setControllerListener(this);
+        gameUI.setPlayerControllerListener(this);
 
         playerInfo = new PlayerInfo(username);
 
@@ -75,6 +76,12 @@ public class MainActivity extends AppCompatActivity
             playerInfo = newPlayerInfo;
         playerInfo.setPlayerInfoController(gameUI);
 
+        AvailableUpgrades newAvailableUpgrades =
+                (AvailableUpgrades) getIntent().getSerializableExtra("AvailableUpgrades");
+        if (newAvailableUpgrades != null)
+            availableUpgrades = newAvailableUpgrades;
+
+
         Toast.makeText(getApplicationContext(), "Num Coins is " + playerInfo.getNumCoins(), Toast.LENGTH_SHORT).show();
     }
 
@@ -90,6 +97,7 @@ public class MainActivity extends AppCompatActivity
     public void launchActivity(Class<? extends AppCompatActivity> activityClass) {
         Intent intent = new Intent(getApplicationContext(), activityClass);
         intent.putExtra("PlayerInfo", playerInfo);
+        intent.putExtra("AvailableUpgrades", availableUpgrades);
         startActivity(intent);
     }
 
