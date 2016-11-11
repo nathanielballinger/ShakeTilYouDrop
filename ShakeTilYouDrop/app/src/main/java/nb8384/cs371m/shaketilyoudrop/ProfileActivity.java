@@ -29,6 +29,7 @@ public class ProfileActivity extends AppCompatActivity
         profileUI.setControllerListener(this);
         profileUI.setActivityLauncherListener(this);
         playerInfo.setPlayerInfoController(profileUI);
+        profileUI.username.setText(playerInfo.getUserName());
     }
 
     @Override
@@ -54,6 +55,7 @@ public class ProfileActivity extends AppCompatActivity
         if (newPlayerInfo != null)
             playerInfo = newPlayerInfo;
         playerInfo.setPlayerInfoController(profileUI);
+        profileUI.username.setText(playerInfo.getUserName());
     }
 
     @Override

@@ -92,7 +92,6 @@ public class ProfileUI implements ProfilePlayerInfoController, ActivityLauncher{
 
     @Override
     public void onPlayerInfoUpdate(PlayerInfo playerInfo) {
-        username.setText(playerInfo.getUserName());
     }
 
     @Override
