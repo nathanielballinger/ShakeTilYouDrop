@@ -1,6 +1,7 @@
 package nb8384.cs371m.shaketilyoudrop;
 
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -63,6 +64,9 @@ public class ProfileUI implements
         upgradesText.setTextSize(TypedValue.COMPLEX_UNIT_SP, userSize/2);
         shakersStaticText.setTextSize(TypedValue.COMPLEX_UNIT_SP, userSize/2);
         shakersText.setTextSize(TypedValue.COMPLEX_UNIT_SP, userSize/2);
+
+        rvUpgrades.setAdapter(adapter);
+        rvUpgrades.setLayoutManager(new LinearLayoutManager(activity));
     }
 
     private void setViewListeners(final AppCompatActivity activity) {
