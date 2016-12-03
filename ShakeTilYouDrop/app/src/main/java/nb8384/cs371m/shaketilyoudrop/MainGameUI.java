@@ -9,6 +9,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
+import com.nineoldandroids.animation.Animator;
+
 
 /**
  * Created by Nathaniel on 10/10/2016.
@@ -138,7 +142,7 @@ public class MainGameUI
     @Override
     public void onShake(SensorEvent evt) {
         // animate shaker image, play sounds, etc. here
-
+        YoYo.with(Techniques.Tada).duration(700).playOn(shaker);
         controllerListener.onShake();
     }
 }
