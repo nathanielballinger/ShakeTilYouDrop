@@ -47,6 +47,7 @@ public class StoreActivity extends AppCompatActivity
 
     @Override
     protected void onResume() {
+        super.onResume();
         Intent intent = getIntent();
         playerInfo = (PlayerInfo) intent.getSerializableExtra("PlayerInfo");
 
