@@ -1,5 +1,6 @@
 package nb8384.cs371m.shaketilyoudrop;
 
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,6 +24,7 @@ public class StorePageUI
     private UpgradesAdapter adapter;
     private Button backToGameButton;
     private TextView numCoins;
+    private MediaPlayer purchaseSound;
 
     public StorePageUI(AppCompatActivity activity, UpgradesAdapter upgradesAdapter) {
         adapter = upgradesAdapter;
@@ -36,7 +38,7 @@ public class StorePageUI
         rvUpgrades = (RecyclerView) activity.findViewById(R.id.rvUpgrades);
         backToGameButton = (Button) activity.findViewById(R.id.backToGame);
         numCoins = (TextView) activity.findViewById(R.id.numCoinsEditable);
-
+        purchaseSound = MediaPlayer.create(activity.getApplicationContext(), R.raw.coin_dropping);
     }
 
     private void initViewValues(AppCompatActivity activity) {
@@ -87,7 +89,9 @@ public class StorePageUI
 
     @Override
     public void onPurchaseButtonPressed(Upgrade upgrade) {
-        if (playerListener.onAttemptPurchase(upgrade))
+        if (playerListener.onAttemptPurchase(upgrade)) {
+            purchaseSound.start();
             upgradeListener.purchase(upgrade);
+        }
     }
 }
