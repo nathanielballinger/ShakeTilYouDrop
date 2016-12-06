@@ -10,7 +10,6 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 
 /**
@@ -18,9 +17,9 @@ import android.widget.TextView;
  */
 
 public class ProfileUI implements
-        ProfilePlayerInfoController, ActivityLauncher {
+        ProfilePlayerInfoController, ActivityController {
 
-    private ActivityLauncherListener activityLauncherListener;
+    private ActivityControllerListener activityControllerListener;
     private ControllerListener controllerListener;
 
     private EditText username;
@@ -85,14 +84,13 @@ public class ProfileUI implements
         backToGame.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                activityLauncherListener.launchActivity(MainActivity.class);
+                activityControllerListener.finishActivity();
             }
         });
     }
 
-    @Override
-    public void setActivityLauncherListener(ActivityLauncherListener listener) {
-        activityLauncherListener = listener;
+    public void setActivityControllerListener(ActivityControllerListener listener) {
+        activityControllerListener = listener;
     }
 
     @Override

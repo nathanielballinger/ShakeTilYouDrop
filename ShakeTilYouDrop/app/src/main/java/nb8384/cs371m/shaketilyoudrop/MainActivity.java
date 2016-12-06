@@ -8,11 +8,12 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
-        implements ActivityLauncher.ActivityLauncherListener,
+        implements ActivityController.ActivityControllerListener,
         MainGamePlayerInfoController.MainPlayerControllerListener {
+
+    public static final int REQUEST_CODE = 1;
 
     private SensorManager mSensorManager;
     private Sensor motionSensor;
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity
         handle.postDelayed(realTime, 1000);
 
         gameUI = new MainGameUI(this);
-        gameUI.setActivityLauncherListener(this);
+        gameUI.setActivityControllerListener(this);
         gameUI.setPlayerControllerListener(this);
 
         playerInfo = new PlayerInfo(username);
@@ -65,20 +66,9 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        mSensorManager.registerListener(shakeListener, motionSensor, SensorManager.SENSOR_DELAY_GAME);
 
-        PlayerInfo newPlayerInfo = (PlayerInfo) getIntent().getSerializableExtra("PlayerInfo");
-        if (newPlayerInfo != null)
-            playerInfo = newPlayerInfo;
-        playerInfo.setPlayerInfoController(gameUI);
+        initActivityFromIntent(getIntent());
 
-        UpgradeList newUpgradeList =
-                (UpgradeList) getIntent().getSerializableExtra("UpgradeList");
-        if (newUpgradeList != null)
-            upgradeList = newUpgradeList;
-
-
-        Toast.makeText(getApplicationContext(), "Num Coins is " + playerInfo.getNumCoins(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -94,7 +84,19 @@ public class MainActivity extends AppCompatActivity
         Intent intent = new Intent(getApplicationContext(), activityClass);
         intent.putExtra("PlayerInfo", playerInfo);
         intent.putExtra("UpgradeList", upgradeList);
-        startActivity(intent);
+        startActivityForResult(intent, REQUEST_CODE);
+    }
+
+    @Override
+    public void finishActivity() {
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+            initActivityFromIntent(data);
+        }
     }
 
     @Override
@@ -105,6 +107,26 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onShake() {
         playerInfo.shake();
+    }
+
+    @Override
+    public void onBackPressed() {
+        // save instance data to Firebase before closing app
+        super.onBackPressed();
+    }
+
+    private void initActivityFromIntent(Intent data) {
+        mSensorManager.registerListener(shakeListener, motionSensor, SensorManager.SENSOR_DELAY_GAME);
+
+        PlayerInfo newPlayerInfo = (PlayerInfo) data.getSerializableExtra("PlayerInfo");
+        if (newPlayerInfo != null)
+            playerInfo = newPlayerInfo;
+        playerInfo.setPlayerInfoController(gameUI);
+
+        UpgradeList newUpgradeList =
+                (UpgradeList) data.getSerializableExtra("UpgradeList");
+        if (newUpgradeList != null)
+            upgradeList = newUpgradeList;
     }
 
 

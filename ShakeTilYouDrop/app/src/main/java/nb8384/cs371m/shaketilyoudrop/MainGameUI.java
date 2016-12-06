@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import com.nineoldandroids.animation.Animator;
 
 
 /**
@@ -19,10 +18,10 @@ import com.nineoldandroids.animation.Animator;
  */
 
 public class MainGameUI
-        implements ShakeListener.OnShakeListener, MainGamePlayerInfoController, ActivityLauncher {
+        implements ShakeListener.OnShakeListener, MainGamePlayerInfoController, ActivityController {
 
 
-    private ActivityLauncherListener activityLauncherListener;
+    private ActivityControllerListener activityControllerListener;
     private MainPlayerControllerListener controllerListener;
 
     private TextView userText, timeText, numShakesText, timeStaticText, numShakesStaticText;
@@ -97,13 +96,13 @@ public class MainGameUI
         store.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activityLauncherListener.launchActivity(StoreActivity.class);
+                activityControllerListener.launchActivity(StoreActivity.class);
             }
         });
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activityLauncherListener.launchActivity(ProfileActivity.class);
+                activityControllerListener.launchActivity(ProfileActivity.class);
             }
         });
 
@@ -134,9 +133,8 @@ public class MainGameUI
         controllerListener = listener;
     }
 
-    @Override
-    public void setActivityLauncherListener(ActivityLauncherListener listener) {
-        activityLauncherListener = listener;
+    public void setActivityControllerListener(ActivityControllerListener listener) {
+        activityControllerListener = listener;
     }
 
     @Override

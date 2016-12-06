@@ -11,7 +11,7 @@ import android.widget.Toast;
  */
 
 public class ProfileActivity extends AppCompatActivity
-    implements ActivityLauncher.ActivityLauncherListener,
+    implements ActivityController.ActivityControllerListener,
         ProfilePlayerInfoController.ControllerListener {
 
     private PlayerInfo playerInfo;
@@ -38,7 +38,7 @@ public class ProfileActivity extends AppCompatActivity
 
         profileUI = new ProfileUI(this, adapter);
         profileUI.setControllerListener(this);
-        profileUI.setActivityLauncherListener(this);
+        profileUI.setActivityControllerListener(this);
         playerInfo.setPlayerInfoController(profileUI);
     }
 
@@ -48,6 +48,12 @@ public class ProfileActivity extends AppCompatActivity
         intent.putExtra("PlayerInfo", playerInfo);
         intent.putExtra("UpgradeList", availableUpgrades);
         startActivity(intent);
+    }
+
+    @Override
+    public void finishActivity() {
+        updateIntent();
+        finish();
     }
 
     @Override
@@ -80,5 +86,17 @@ public class ProfileActivity extends AppCompatActivity
     protected void onPause() {
         super.onPause();
         playerInfo.unregisterPlayerInfoController();
+    }
+
+    @Override
+    public void onBackPressed() {
+        updateIntent();
+        super.onBackPressed();
+    }
+
+    private void updateIntent() {
+        getIntent().putExtra("PlayerInfo", playerInfo);
+        getIntent().putExtra("UpgradeList", availableUpgrades);
+        setResult(RESULT_OK, getIntent());
     }
 }

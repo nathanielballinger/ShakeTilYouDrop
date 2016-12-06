@@ -7,17 +7,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.List;
-
 /**
  * Created by Nathaniel on 11/9/2016.
  */
 
 public class StorePageUI
         implements ShopPlayerInfoController, ShopUpgradeInfoController,
-        ActivityLauncher, UpgradesAdapter.UpgradesAdapterListener {
+        ActivityController, UpgradesAdapter.UpgradesAdapterListener {
 
-    private ActivityLauncherListener activityLauncherListener;
+    private ActivityControllerListener activityControllerListener;
     private ShopPlayerControllerListener playerListener;
     private ShopUpgradeControllerListener upgradeListener;
 
@@ -51,15 +49,14 @@ public class StorePageUI
         backToGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activityLauncherListener.launchActivity(MainActivity.class);
+                activityControllerListener.finishActivity();
             }
         });
 
     }
 
-    @Override
-    public void setActivityLauncherListener(ActivityLauncherListener listener) {
-        activityLauncherListener = listener;
+    public void setActivityControllerListener(ActivityControllerListener listener) {
+        activityControllerListener = listener;
     }
 
     @Override

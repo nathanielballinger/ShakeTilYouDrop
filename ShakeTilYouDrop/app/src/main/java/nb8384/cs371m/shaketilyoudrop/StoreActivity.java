@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 public class StoreActivity extends AppCompatActivity
-        implements ActivityLauncher.ActivityLauncherListener,
+        implements ActivityController.ActivityControllerListener,
         ShopPlayerInfoController.ShopPlayerControllerListener,
         ShopUpgradeInfoController.ShopUpgradeControllerListener {
 
@@ -38,7 +38,7 @@ public class StoreActivity extends AppCompatActivity
 
         storeUI.setPlayerControllerListener(this);
         storeUI.setUpgradeControllerListener(this);
-        storeUI.setActivityLauncherListener(this);
+        storeUI.setActivityControllerListener(this);
 
         playerInfo.setPlayerInfoController(storeUI);
         availableUpgrades.registerController(storeUI);
@@ -61,12 +61,24 @@ public class StoreActivity extends AppCompatActivity
     }
 
     @Override
+    public void onBackPressed() {
+        updateIntent();
+        super.onBackPressed();
+    }
+    
+    @Override
     public void launchActivity(Class<? extends AppCompatActivity> activityClass) {
         Intent intent = new Intent(getApplicationContext(), activityClass);
         intent.putExtra("PlayerInfo", playerInfo);
         intent.putExtra("UpgradeList", availableUpgrades);
         startActivity(intent);
 
+    }
+
+    @Override
+    public void finishActivity() {
+        updateIntent();
+        finish();
     }
 
     @Override
@@ -83,5 +95,11 @@ public class StoreActivity extends AppCompatActivity
     @Override
     public void purchase(Upgrade upgrade) {
         upgrade.purchase();
+    }
+
+    private void updateIntent() {
+        getIntent().putExtra("PlayerInfo", playerInfo);
+        getIntent().putExtra("UpgradeList", availableUpgrades);
+        setResult(RESULT_OK, getIntent());
     }
 }
