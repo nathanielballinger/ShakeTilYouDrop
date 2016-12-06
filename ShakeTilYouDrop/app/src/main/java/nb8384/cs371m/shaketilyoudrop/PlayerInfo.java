@@ -16,6 +16,7 @@ public class PlayerInfo implements java.io.Serializable {
     private long timePlayed;
     private int pointsPerShake;
     private UpgradeList upgrades;
+    private int oldCoins;
 
     public static final int POINTS_PER_COIN = 100;
 
@@ -30,6 +31,7 @@ public class PlayerInfo implements java.io.Serializable {
         totalCoins = 0;
         timePlayed = 0;
         pointsPerShake = 1;
+        oldCoins = 0;
     }
 
     public void setPlayerInfoController(PlayerInfoController controller) {
@@ -60,6 +62,7 @@ public class PlayerInfo implements java.io.Serializable {
         upgrades.getList().add(upgrade);
         upgrade.apply(this);
         numCoins -= upgrade.getPrice();
+        oldCoins -= upgrade.getPrice();
 
         if(controller != null)
             controller.onPlayerInfoUpdate(this);
@@ -90,6 +93,14 @@ public class PlayerInfo implements java.io.Serializable {
 
     public int getNumCoins() {
         return numCoins;
+    }
+
+    public int getOldCoins() {
+        return oldCoins;
+    }
+
+    public void setOldCoins(int oldCoins){
+        this.oldCoins = oldCoins;
     }
 
     public int getNumTotalCoins() {

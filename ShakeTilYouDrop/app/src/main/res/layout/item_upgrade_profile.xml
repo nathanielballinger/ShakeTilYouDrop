@@ -8,9 +8,9 @@
     android:paddingTop="10dp">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/ic_launcher"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/coins"
         android:id="@+id/upgradeIconImage"
         android:layout_weight="1" />
 

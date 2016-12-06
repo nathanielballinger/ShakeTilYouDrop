@@ -2,6 +2,7 @@ package nb8384.cs371m.shaketilyoudrop;
 
 import android.app.Activity;
 import android.hardware.SensorEvent;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -30,6 +31,9 @@ public class MainGameUI
     private ImageView shaker;
     private Button reset, store, profile;
     private DisplayMetrics dimensions;
+    private MediaPlayer shakerSound, coinSound;
+    private int oldCoins;
+    private int currCoins;
 
     public MainGameUI(Activity activity) {
 
@@ -51,6 +55,8 @@ public class MainGameUI
         totalCoinsText = (TextView) activity.findViewById(R.id.totalCoinsText);
 
         shaker = (ImageView) activity.findViewById(R.id.shakerView);
+        shakerSound =  MediaPlayer.create(activity.getApplicationContext(), R.raw.shake);
+        coinSound = MediaPlayer.create(activity.getApplicationContext(), R.raw.collect_coin);
 
         reset = (Button) activity.findViewById(R.id.resetButton);
         store = (Button) activity.findViewById(R.id.storeButton);
@@ -127,6 +133,13 @@ public class MainGameUI
         currCoinsText.setText(Integer.toString(playerInfo.getNumCoins()));
         totalCoinsText.setText(Integer.toString(playerInfo.getNumTotalCoins()));
         userText.setText(playerInfo.getUserName());
+        oldCoins = playerInfo.getOldCoins();
+        currCoins = playerInfo.getNumCoins();
+        if(currCoins > oldCoins){
+            coinSound.start();
+            oldCoins = currCoins;
+            playerInfo.setOldCoins(oldCoins);
+        }
     }
 
     @Override
@@ -141,6 +154,7 @@ public class MainGameUI
     @Override
     public void onShake(SensorEvent evt) {
         // animate shaker image, play sounds, etc. here
+        shakerSound.start();
         YoYo.with(Techniques.Tada).duration(700).playOn(shaker);
         controllerListener.onShake();
     }
