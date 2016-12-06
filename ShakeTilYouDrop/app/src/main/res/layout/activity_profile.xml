@@ -21,22 +21,23 @@
         android:id="@+id/usernameText"
         android:textAlignment="center"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/usernameText"
-        android:id="@+id/backToGameButton"
-        android:text="Back To Game"
-        android:textSize="20sp"
-        android:textAlignment="center"/>
-
-    <android.support.v7.widget.RecyclerView
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/backToGameButton"
+        android:layout_below="@+id/usernameText"
+        android:id="@+id/upgradesStaticText"
+        android:text="Upgrades Bought:"
+        android:textSize="20sp"
+        android:textAlignment="center"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/upgradesStaticText"
         android:id="@+id/upgradeRecyclerView">
     </android.support.v7.widget.RecyclerView>
 
@@ -46,28 +47,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/upgradeRecyclerView"
-        android:id="@+id/upgradesStaticText"
-        android:text="Total Upgrades Bought:"
-        android:textSize="20sp"
-        android:textAlignment="center"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/upgradesStaticText"
-        android:id="@+id/upgradesText"
-        android:text="0"
-        android:textSize="20sp"
-        android:textAlignment="center"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/upgradesText"
         android:id="@+id/shakersStaticText"
         android:text="Shakers Owned:"
         android:textSize="20sp"
@@ -84,6 +63,14 @@
         android:textSize="20sp"
         android:textAlignment="center"/>
 
-
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/backToGameButton"
+        android:text="Back To Game"
+        android:textSize="20sp"
+        android:textAlignment="center"/>
 
 </RelativeLayout>

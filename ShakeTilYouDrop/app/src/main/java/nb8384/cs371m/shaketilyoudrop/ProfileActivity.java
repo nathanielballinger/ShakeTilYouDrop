@@ -33,7 +33,7 @@ public class ProfileActivity extends AppCompatActivity
             availableUpgrades.populateWithAllUpgrades();
         }
 
-        UpgradesAdapter adapter = new UpgradesAdapter(getApplicationContext(),
+        ProfileUpgradesAdapter adapter = new ProfileUpgradesAdapter(getApplicationContext(),
                 playerInfo.getActiveUpgrades(), R.layout.item_upgrade_profile);
 
         profileUI = new ProfileUI(this, adapter);

@@ -25,12 +25,12 @@ public class ProfileUI implements
 
     private EditText username;
     private RecyclerView rvUpgrades;
-    private UpgradesAdapter adapter;
-    private TextView upgradesStaticText, upgradesText, shakersStaticText, shakersText;
+    private ProfileUpgradesAdapter adapter;
+    private TextView upgradesStaticText, shakersStaticText, shakersText;
     private Button backToGame;
     private DisplayMetrics dimensions;
 
-    public ProfileUI(AppCompatActivity activity, UpgradesAdapter adapter) {
+    public ProfileUI(AppCompatActivity activity, ProfileUpgradesAdapter adapter) {
         this.adapter = adapter;
         findViewsById(activity);
         initViewValues(activity);
@@ -41,7 +41,6 @@ public class ProfileUI implements
         username = (EditText) activity.findViewById(R.id.usernameText);
         rvUpgrades = (RecyclerView) activity.findViewById(R.id.upgradeRecyclerView);
         upgradesStaticText = (TextView) activity.findViewById(R.id.upgradesStaticText);
-        upgradesText = (TextView) activity.findViewById(R.id.upgradesText);
         shakersStaticText = (TextView) activity.findViewById(R.id.shakersStaticText);
         shakersText = (TextView) activity.findViewById(R.id.shakersText);
         backToGame = (Button) activity.findViewById(R.id.backToGameButton);
@@ -57,11 +56,10 @@ public class ProfileUI implements
         username.setTextSize(TypedValue.COMPLEX_UNIT_SP, userSize);
         backToGame.setTextSize(TypedValue.COMPLEX_UNIT_SP, userSize/2);
 
-        int listViewHeight = (int) (screenHeight * 0.5);
+        int listViewHeight = (int) (screenHeight * 0.25);
         rvUpgrades.getLayoutParams().height = listViewHeight;
 
         upgradesStaticText.setTextSize(TypedValue.COMPLEX_UNIT_SP, userSize/2);
-        upgradesText.setTextSize(TypedValue.COMPLEX_UNIT_SP, userSize/2);
         shakersStaticText.setTextSize(TypedValue.COMPLEX_UNIT_SP, userSize/2);
         shakersText.setTextSize(TypedValue.COMPLEX_UNIT_SP, userSize/2);
 
