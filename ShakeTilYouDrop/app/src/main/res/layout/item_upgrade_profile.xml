@@ -10,7 +10,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/ic_launcher"
+        android:src="@drawable/coins"
         android:id="@+id/upgradeIconImage"
         android:layout_weight="1" />
 
