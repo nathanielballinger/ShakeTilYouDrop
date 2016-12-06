@@ -31,6 +31,7 @@ public class UpgradeList implements Serializable {
         availableUpgrades.add(new ShakeMultiplierUpgrade("Multiply Points per Shake by 2", 1, 2));
         availableUpgrades.add(new ShakeMultiplierUpgrade("Multiply Points per Shake by 5", 4, 5));
         availableUpgrades.add(new ShakeMultiplierUpgrade("Multiply Points per Shake by 10", 9, 10));
+        availableUpgrades.add(new ShakeMultiplierUpgrade("Multiply Points per Shake by 20", 18, 20));
     }
 
 }

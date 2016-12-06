@@ -131,11 +131,15 @@ public class PlayerInfo implements java.io.Serializable {
 
     private void addNewCoins(int oldNumPoints, int newNumPoints) {
         int diff = newNumPoints - oldNumPoints;
-        if (diff >= POINTS_PER_COIN)
+        if (diff >= POINTS_PER_COIN) {
             numCoins += diff / POINTS_PER_COIN;
+            totalCoins += diff / POINTS_PER_COIN;
+        }
 
-        if (newNumPoints % POINTS_PER_COIN < oldNumPoints % POINTS_PER_COIN)
+        if (newNumPoints % POINTS_PER_COIN < oldNumPoints % POINTS_PER_COIN) {
             numCoins++;
+            totalCoins++;
+        }
     }
 
 
