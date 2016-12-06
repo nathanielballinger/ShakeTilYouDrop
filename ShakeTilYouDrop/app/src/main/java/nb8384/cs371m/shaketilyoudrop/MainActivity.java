@@ -95,6 +95,7 @@ public class MainActivity extends FragmentActivity
         super.onResume();
         initActivityFromIntent(getIntent());
         if (!loggedIn) {
+        if (mAuth.getCurrentUser() == null) {
             dialogFragment = new LoginDialogFragment();
             dialogFragment.setLoginDialogListener(this);
             mAuth.addAuthStateListener(mAuthListener);
