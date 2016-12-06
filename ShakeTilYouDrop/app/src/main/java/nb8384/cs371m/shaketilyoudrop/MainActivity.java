@@ -13,6 +13,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -33,6 +36,7 @@ public class MainActivity extends FragmentActivity
     private PlayerInfo playerInfo;
     private UpgradeList upgradeList;
     private long time = 0;
+    private boolean loggedIn = false;
     Handler handle;
 
     String username = "Default Username"; //Dummy Username!!!!!!! Change later
@@ -50,8 +54,10 @@ public class MainActivity extends FragmentActivity
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if (firebaseAuth.getCurrentUser() == null) {
-                    //dialogFragment.show(getFragmentManager(), "FirebaseLogin");
+                    loggedIn = false;
                 }
+                else
+                    loggedIn = true;
             }
         };
 
@@ -88,10 +94,13 @@ public class MainActivity extends FragmentActivity
     protected void onResume() {
         super.onResume();
         initActivityFromIntent(getIntent());
-        dialogFragment = new LoginDialogFragment();
-        dialogFragment.setLoginDialogListener(this);
-        mAuth.addAuthStateListener(mAuthListener);
-        dialogFragment.show(getFragmentManager(),"FirebaseLogin");
+        if (!loggedIn) {
+            dialogFragment = new LoginDialogFragment();
+            dialogFragment.setLoginDialogListener(this);
+            mAuth.addAuthStateListener(mAuthListener);
+            dialogFragment.show(getFragmentManager(),"FirebaseLogin");
+        }
+
 
     }
 
@@ -117,21 +126,39 @@ public class MainActivity extends FragmentActivity
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        
-    }
-
-    @Override
     public void onCreateAccountClick(String username, String password) {
-        Toast.makeText(getApplicationContext(), "Account Created!", Toast.LENGTH_SHORT).show();
-        dialogFragment.dismiss();
+        mAuth.createUserWithEmailAndPassword(username, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (!task.isSuccessful())
+                            Toast.makeText(getApplicationContext(),
+                                    "Authentication Failed!", Toast.LENGTH_SHORT).show();
+                        else {
+                            Toast.makeText(getApplicationContext(),
+                                    "Account Created!", Toast.LENGTH_SHORT).show();
+                            dialogFragment.dismiss();
+                        }
+                    }
+                });
     }
 
     @Override
     public void onLoginClick(String username, String password) {
-        Toast.makeText(getApplicationContext(), "Account Login!", Toast.LENGTH_SHORT).show();
-        dialogFragment.dismiss();
+        mAuth.signInWithEmailAndPassword(username, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (!task.isSuccessful())
+                            Toast.makeText(getApplicationContext(),
+                                    "Authentication Failed!", Toast.LENGTH_SHORT).show();
+                        else {
+                            Toast.makeText(getApplicationContext(),
+                                    "Login Succesful!", Toast.LENGTH_SHORT).show();
+                            dialogFragment.dismiss();
+                        }
+                    }
+                });
     }
 
 
