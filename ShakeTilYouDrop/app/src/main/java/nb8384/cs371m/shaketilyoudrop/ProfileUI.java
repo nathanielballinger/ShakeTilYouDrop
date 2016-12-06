@@ -22,7 +22,7 @@ public class ProfileUI implements
     private ActivityControllerListener activityControllerListener;
     private ControllerListener controllerListener;
 
-    private EditText username;
+    private TextView username;
     private RecyclerView rvUpgrades;
     private ProfileUpgradesAdapter adapter;
     private TextView upgradesStaticText, shakersStaticText, shakersText;
@@ -37,7 +37,7 @@ public class ProfileUI implements
     }
 
     private void findViewsById(AppCompatActivity activity) {
-        username = (EditText) activity.findViewById(R.id.usernameText);
+        username = (TextView) activity.findViewById(R.id.usernameText);
         rvUpgrades = (RecyclerView) activity.findViewById(R.id.upgradeRecyclerView);
         upgradesStaticText = (TextView) activity.findViewById(R.id.upgradesStaticText);
         shakersStaticText = (TextView) activity.findViewById(R.id.shakersStaticText);
@@ -55,7 +55,7 @@ public class ProfileUI implements
         username.setTextSize(TypedValue.COMPLEX_UNIT_SP, userSize);
         backToGame.setTextSize(TypedValue.COMPLEX_UNIT_SP, userSize/2);
 
-        int listViewHeight = (int) (screenHeight * 0.25);
+        int listViewHeight = (int) (screenHeight * 0.4);
         rvUpgrades.getLayoutParams().height = listViewHeight;
 
         upgradesStaticText.setTextSize(TypedValue.COMPLEX_UNIT_SP, userSize/2);
@@ -67,19 +67,6 @@ public class ProfileUI implements
     }
 
     private void setViewListeners(final AppCompatActivity activity) {
-        username.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                controllerListener.editUsername(username);
-            }
-        });
 
         backToGame.setOnClickListener(new View.OnClickListener(){
             @Override

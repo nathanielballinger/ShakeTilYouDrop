@@ -31,7 +31,9 @@ public class MainGameUI
     private ImageView shaker;
     private Button reset, store, profile;
     private DisplayMetrics dimensions;
-    private MediaPlayer shakerSound;
+    private MediaPlayer shakerSound, coinSound;
+    private int oldCoins;
+    private int currCoins;
 
     public MainGameUI(Activity activity) {
 
@@ -54,6 +56,7 @@ public class MainGameUI
 
         shaker = (ImageView) activity.findViewById(R.id.shakerView);
         shakerSound =  MediaPlayer.create(activity.getApplicationContext(), R.raw.shake);
+        coinSound = MediaPlayer.create(activity.getApplicationContext(), R.raw.collect_coin);
 
         reset = (Button) activity.findViewById(R.id.resetButton);
         store = (Button) activity.findViewById(R.id.storeButton);
@@ -130,6 +133,13 @@ public class MainGameUI
         currCoinsText.setText(Integer.toString(playerInfo.getNumCoins()));
         totalCoinsText.setText(Integer.toString(playerInfo.getNumTotalCoins()));
         userText.setText(playerInfo.getUserName());
+        oldCoins = playerInfo.getOldCoins();
+        currCoins = playerInfo.getNumCoins();
+        if(currCoins > oldCoins){
+            coinSound.start();
+            oldCoins = currCoins;
+            playerInfo.setOldCoins(oldCoins);
+        }
     }
 
     @Override

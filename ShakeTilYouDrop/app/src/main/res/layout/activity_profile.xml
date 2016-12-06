@@ -12,7 +12,7 @@
     android:background="#109ED7"
     tools:context="nb8384.cs371m.shaketilyoudrop.ProfileActivity">
 
-    <EditText
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
