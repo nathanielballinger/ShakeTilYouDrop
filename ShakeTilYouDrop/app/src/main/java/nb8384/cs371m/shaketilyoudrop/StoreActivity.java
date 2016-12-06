@@ -65,7 +65,7 @@ public class StoreActivity extends AppCompatActivity
         updateIntent();
         super.onBackPressed();
     }
-    
+
     @Override
     public void launchActivity(Class<? extends AppCompatActivity> activityClass) {
         Intent intent = new Intent(getApplicationContext(), activityClass);

@@ -1,20 +1,31 @@
 package nb8384.cs371m.shaketilyoudrop;
 
+import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+public class MainActivity extends FragmentActivity
         implements ActivityController.ActivityControllerListener,
-        MainGamePlayerInfoController.MainPlayerControllerListener {
+        MainGamePlayerInfoController.MainPlayerControllerListener,
+        LoginDialogFragment.LoginDialogListener {
 
     public static final int REQUEST_CODE = 1;
 
+    private LoginDialogFragment dialogFragment;
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
     private SensorManager mSensorManager;
     private Sensor motionSensor;
     private ShakeListener shakeListener;
@@ -33,6 +44,16 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         handle = new Handler();
         handle.postDelayed(realTime, 1000);
+
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (firebaseAuth.getCurrentUser() == null) {
+                    //dialogFragment.show(getFragmentManager(), "FirebaseLogin");
+                }
+            }
+        };
 
         gameUI = new MainGameUI(this);
         gameUI.setActivityControllerListener(this);
@@ -66,8 +87,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-
         initActivityFromIntent(getIntent());
+        dialogFragment = new LoginDialogFragment();
+        dialogFragment.setLoginDialogListener(this);
+        mAuth.addAuthStateListener(mAuthListener);
+        dialogFragment.show(getFragmentManager(),"FirebaseLogin");
 
     }
 
@@ -76,6 +100,38 @@ public class MainActivity extends AppCompatActivity
         super.onPause();
         mSensorManager.unregisterListener(shakeListener);
         playerInfo.unregisterPlayerInfoController();
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(mAuth != null)
+            mAuth.removeAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        
+    }
+
+    @Override
+    public void onCreateAccountClick(String username, String password) {
+        Toast.makeText(getApplicationContext(), "Account Created!", Toast.LENGTH_SHORT).show();
+        dialogFragment.dismiss();
+    }
+
+    @Override
+    public void onLoginClick(String username, String password) {
+        Toast.makeText(getApplicationContext(), "Account Login!", Toast.LENGTH_SHORT).show();
+        dialogFragment.dismiss();
     }
 
 

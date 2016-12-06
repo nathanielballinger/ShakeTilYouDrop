@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "488916337745",
+    "firebase_url": "https://shaketilyoudrop.firebaseio.com",
+    "project_id": "shaketilyoudrop",
+    "storage_bucket": "shaketilyoudrop.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:488916337745:android:461246ffb32a7d10",
+        "android_client_info": {
+          "package_name": "nb8384.cs371m.shaketilyoudrop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "488916337745-5fcb4tpj8gh1iul9egav42lcnedn2o9h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "nb8384.cs371m.shaketilyoudrop",
+            "certificate_hash": "AAA5780857C0B3C6DFFB6E5704AA8342A17E6B16"
+          }
+        },
+        {
+          "client_id": "488916337745-kqlu63cmtgij4iupt18v6n8osmgbnhjt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnfdbASkI78U5Nvd9IQqeJELacp4ux2ew"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "488916337745-kqlu63cmtgij4iupt18v6n8osmgbnhjt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,5 +1,6 @@
 package nb8384.cs371m.shaketilyoudrop;
 
+import android.app.Activity;
 import android.hardware.SensorEvent;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
@@ -30,14 +31,14 @@ public class MainGameUI
     private Button reset, store, profile;
     private DisplayMetrics dimensions;
 
-    public MainGameUI(AppCompatActivity activity) {
+    public MainGameUI(Activity activity) {
 
         findViewsById(activity);
         initViewValues(activity);
         setViewListeners(activity);
     }
 
-    private void findViewsById(AppCompatActivity activity) {
+    private void findViewsById(Activity activity) {
         userText = (TextView) activity.findViewById(R.id.userText);
         timeText = (TextView) activity.findViewById(R.id.timeText);
         numShakesText = (TextView) activity.findViewById(R.id.numShakesText);
@@ -56,7 +57,7 @@ public class MainGameUI
         profile = (Button) activity.findViewById(R.id.profileButton);
     }
 
-    private void initViewValues(AppCompatActivity activity) {
+    private void initViewValues(Activity activity) {
         dimensions = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(dimensions);
         int screenHeight = dimensions.heightPixels;
@@ -86,7 +87,7 @@ public class MainGameUI
         totalCoinsText.setTextSize(TypedValue.COMPLEX_UNIT_SP, userSize/2);
     }
 
-    private void setViewListeners(final AppCompatActivity activity) {
+    private void setViewListeners(final Activity activity) {
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
